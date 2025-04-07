@@ -19,6 +19,10 @@ const messages = [
 	},
 ];
 
+const getMessageById = (msgId) => {
+	return messages.find((mes) => mes.id === msgId);
+};
+
 indexRouter.get('/new', (req, res) => {
 	res.render('form');
 });
@@ -33,9 +37,9 @@ indexRouter.post('/new', (req, res) => {
 	res.redirect("/");
 });
 
-// indexRouter.get('/:msgId', (req, res) => {
-// 	res.render('message', { messages: messages });
-// });
+indexRouter.get('/:msgId', (req, res) => {
+	res.render('message', { mes: getMessageById(Number(req.params.msgId)) });
+});
 
 indexRouter.get('/', (req, res) => {
 	res.render('index', { title: 'Mini Message Board', messages: messages });

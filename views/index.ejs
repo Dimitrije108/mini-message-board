@@ -13,11 +13,14 @@
 		</button>
 		<section>
 			<% messages.forEach((mes) => { %>
-				<a href="/<%= %>" class="msgCont">
-					<p><%= mes.user %>:</p>
-					<p><%= mes.text %></p>
-					<p><%= mes.added %></p>
-				</a>
+				<div class="msgCont">
+					<%- include('message', {mes: mes}) %>
+					<button>
+						<a href="/<%=mes.id %>">
+							Open
+						</a>
+					</button>
+				</div>
 			<% }) %>
 		</section>
 	</body>
