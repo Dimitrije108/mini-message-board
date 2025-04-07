@@ -3,10 +3,22 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Mini Message Board</title>
+		<title><%= title %></title>
 		<link rel="stylesheet" href="/styles.css">
 	</head>
 	<body>
 		<h1>Wlcm trvlr</h1>
+		<button>
+			<a href="/new">Write a message</a>
+		</button>
+		<section>
+			<% messages.forEach((mes) => { %>
+				<a href="/<%= %>" class="msgCont">
+					<p><%= mes.user %>:</p>
+					<p><%= mes.text %></p>
+					<p><%= mes.added %></p>
+				</a>
+			<% }) %>
+		</section>
 	</body>
 </html>
