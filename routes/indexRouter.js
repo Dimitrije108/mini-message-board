@@ -1,48 +1,12 @@
 const { Router } = require('express');
-
 const indexRouter = Router();
+const messagesController = require('../controllers/messagesController');
 
-let lastId = 2;
+indexRouter.get('/new', messagesController.createMessagesGet);
+indexRouter.post('/new', messagesController.createMessagesPost);
 
-const messages = [
-	{
-		id: 1,
-		text: 'Hello There!',
-		user: 'General Kenobi',
-		added: new Date(),
-	},
-	{
-		id: 2,
-		text: 'General Kenobi . . .',
-		user: 'General Grievous',
-		added: new Date(),
-	},
-];
-
-const getMessageById = (msgId) => {
-	return messages.find((mes) => mes.id === msgId);
-};
-
-indexRouter.get('/new', (req, res) => {
-	res.render('form');
-});
-
-indexRouter.post('/new', (req, res) => {
-	messages.push({ 
-		id: ++lastId,
-		text: req.body.msg, 
-		user: req.body.name, 
-		added: new Date(),
-	});
-	res.redirect("/");
-});
-
-indexRouter.get('/:msgId', (req, res) => {
-	res.render('message', { mes: getMessageById(Number(req.params.msgId)) });
-});
-
-indexRouter.get('/', (req, res) => {
-	res.render('index', { title: 'Mini Message Board', messages: messages });
-});
+indexRouter.get('/', messagesController.getMessages);
+indexRouter.get('/favicon.ico', (req, res) => res.status(204).end());
+indexRouter.get('/:msgId', messagesController.getMessage);
 
 module.exports = indexRouter;
